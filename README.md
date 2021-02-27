@@ -8,7 +8,7 @@ This PSM plugin will allow users to log on to AWS Management Console on Console 
 ## How does it work?
 
 1. Using [Web Applications for PSM](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/psm_WebApplication.htm?tocpath=Developer%7CCreate%20extensions%7CPSM%20Connectors%7C_____2), the necessary info for generating the federation link is pass the web app, that comes with this plugin, hosted on local component server
-2. The assumeRole API from AWS Javascript SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/STS.html#assumeRole-property), an encoded session token for temporary, limited-privilege credentials is generated
+2. The assumeRole API from [AWS Javascript SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/STS.html#assumeRole-property), an encoded session token for temporary, limited-privilege credentials is generated
 3. The encoded session token is passed to the signinToken.asp page to get the Sign In token, as well as the federation login URL
 4. The user will be redirected to the federation login URL to complete the AWS STS sign in process
 
@@ -17,15 +17,36 @@ This PSM plugin will allow users to log on to AWS Management Console on Console 
 
 ### System & Platform setup
 1. Copy `/aws_sts` from this repo to `c:\inetpub\wwwroot\` folder on PSM Server
-2. In PVWA, go to administration > platform management to [duplicate platform](https://docs.cyberark.com/Product-Doc/OnlineHelp/PrivCloud/Latest/en/Content/PASIMP/manage-platforms.htm) `Amazon Web Services (AWS) Access Keys` to new platform `AWS STS with Acess Keys`
+
+2. Follow the steps in offical doc to create a new [web application for PSM](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/psm_WebApplication.htm?tocpath=Developer%7CCreate%20extensions%7CPSM%20Connectors%7C_____2#Configuration) with the following configuration:
+
+Properties|Value
+----------|-----
+ID| PSM-AwsStsChrome
+Target Settings/ClientApp|Chrome 
+Web Form Settings\LogonURL|http://localhost/aws_sts/
+Web Form Settings\WebFormFields|access_key>{AWSAccessKeyID}</br>secret_key>{Password}</br>account_id>{AWSAccountID}</br>arn_role>{AWSArnRole}</br>policy>{AWSPolicy}</br>duration>{AWSDuration}</br>next_button>(Button)
+
+3. In PVWA, go to administration > platform management to [duplicate platform](https://docs.cyberark.com/Product-Doc/OnlineHelp/PrivCloud/Latest/en/Content/PASIMP/manage-platforms.htm) `Amazon Web Services (AWS) Access Keys` to new platform `AWS STS with Acess Keys`
+
+4. Edit the newly created platform `AWS STS with Acess Keys` with the following changes:
+
+   - Add `AWSPolicy`, `AWSArnRole`, `AWSDuration` under `Target Account Platform > UI & Workflow > Properties > Required`
+Name|Value
+----|-----
+AWSPolicy|AWS Policy
+AWSArnRole|AWS ARN Role
+AWSDuration|AWS Session Duration
+
+   - Add a new `Connection Componments` with `PSM-AwsStsChrome` as `Id`
+
+
 
 
 
 ### Acccount Setup
 
-
 ## Usage
-
 
 
 ## Design Consideration
