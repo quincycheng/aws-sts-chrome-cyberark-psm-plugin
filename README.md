@@ -12,9 +12,8 @@ This PSM plugin will allow users to log on to AWS Management Console on Console 
 4. The encoded session token is passed to the server-side script to get the AWS sign in token, as well as the federation login URL
 5. The user will be redirected to the federation login URL to complete the AWS STS signin process
 
-## Setup 
+## System Setup 
 
-### One Time System & Platform Setup
 1. Copy `/aws_sts` from this repo to `c:\inetpub\wwwroot\` folder on PSM Server
 
 2. In PVWA, follow the steps in offical doc to create a new [web application for PSM](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/psm_WebApplication.htm?tocpath=Developer%7CCreate%20extensions%7CPSM%20Connectors%7C_____2#Configuration) with the following configuration:
@@ -52,26 +51,24 @@ Address|Addresss
 
 6. Save the platform
 
-7.  Use `Manage PSM Connectors` feature. to select the PSM server through which the connectors will be managed, 
+7.  Use `Manage PSM Connectors` feature to select the PSM server through which the connectors will be managed
 
 8. [Activate](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/Activating-and-Deactivating-Platforms.htm) `AWS STS with Access Keys` Platform
 
-### Acccount Setup
+## Creating Acccounts
 
 [Add an account](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/NewUI/NewUI-Add-an-account-in-PVWA.htm) using the newly created `AWS STS with Access Keys` platform, under `Cloud Service` 
 
 Manadatory Properties|Value
 ---------------------|----
 Address|aws.amazon.com
-AWS IAM Username| <AWS acccount IAM Username of the access key with AssumeRole permission >
-AWS Access Key ID | <AWS acccount access key with AssumeRole permission>
-AWS Access Key Secret | <AWS acccount secret key with AssumeRole permission>
-AWS Policy| <Policy, e.g. <Your secret key with AssumeRole permission><br/>For example: { "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Action": "*", "Resource": "*" } ] }
-AWS Role: <the IAM role> 
+AWS IAM Username|[AWS acccount IAM Username of the access key with AssumeRole permission]
+AWS Access Key ID|[AWS acccount access key with AssumeRole permission]
+AWS Access Key Secret|[AWS acccount secret key with AssumeRole permission]
+AWS Policy|[AWS Policy for STS]<br/>For example: { "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Action": "*", "Resource": "*" } ] }
+AWS Role|[the IAM role]
 
-   
-
-## Design Consideration
+## FAQ
 1. Why not following the standard 2 AWS account setup?
 
    The offical AWS setup requires a logon account with a custom property.    
@@ -86,5 +83,3 @@ AWS Role: <the IAM role>
 3. What if the same access key & secret key pair is used for multiple roles logon?
 
    [Account group](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/Account-Groups.htm) can be used which secrets are managed together
-
-
