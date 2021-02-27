@@ -1,7 +1,6 @@
 # AWS STS on Chrome Plugin for CyberArk PSM
 
-This PSM plugin will allow users to log on to AWS Management Console on Console using AWS STS
-
+This PSM plugin allows users to log on to AWS Management Console using AWS STS on Chrome
 ![demo video](images/aws_sts_chrome_small.gif)
 
 ## How does it work?
