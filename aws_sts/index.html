@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AWS STS</title>
+<style>
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  input {
+	color:white;
+  }
+  input[type=button] {
+     border: 0 none;
+     background: white;
+     color: black;
+  }
+  input[type=text] {
+     border: 0 none;
+     color: white:
+     background-color: white;
+  }
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://sdk.amazonaws.com/js/aws-sdk-2.849.0.min.js"></script>
+<script>
+$(document).ready(function(){
+  $("#next_button").click(function(){
+  		var debug = false;
+		if (debug) {
+			$("#msg").html("");
+			$("#msg").html( $("#msg").html() + "<h3>Browser</h3>");
+			$("#msg").html( $("#msg").html() + "User Agent: " + window.navigator.userAgent +"<br/>");
+			$("#msg").html( $("#msg").html() + "<h3>Parameters</h3>");
+			$("#msg").html( $("#msg").html() + "access key: " + $("#access_key").val().substring(0,4) +"...<br/>");
+			$("#msg").html( $("#msg").html() + "secret key: " + $("#secret_key").val().substring(0,4) +"...<br/>");
+			$("#msg").html( $("#msg").html() + "account id: " + $("#account_id").val() +"<br/>");
+			$("#msg").html( $("#msg").html() + "arn_role: " + $("#arn_role").val() +"<br/>");
+			$("#msg").html( $("#msg").html() + "policy: " + $("#policy").val() +"<br/>");
+			$("#msg").html( $("#msg").html() + "duration: " + $("#duration").val() +"<br/>");
+			$("#msg").html( $("#msg").html() + "session name: " + $("#session_name").val() +"<br/>");
+		}
+		AWS.config.update({
+		  credentials: new AWS.Credentials($("#access_key").val(), $("#secret_key").val()),
+		  logger: console
+		})
+		// AssumeRole
+		var sts = new AWS.STS({
+		  apiVersion: '2011-06-15',
+		  accessKeyId: $("#access_key").val(),
+		  secretAccessKey: $("#secret_key").val(),
+		  logger: console
+		});
+		var params = {
+		 Policy: $("#policy").val().replace(/\\\"/g, "\""),
+		 RoleArn: $("#arn_role").val(),
+		 RoleSessionName: $("#session_name").val()
+		};
+		sts.assumeRole(params, function(err, data) {
+		  if (err) {
+			console.log(err, err.stack); // an error occurred
+		  }
+		  else {
+			if (debug) {
+			  console.log(data);           // successful response
+			}
+			sessionId = data.Credentials.AccessKeyId;
+			sessionKey = data.Credentials.SecretAccessKey;
+			sessionToken = data.Credentials.SessionToken;
+			sessionObj = {"sessionId": sessionId, "sessionKey": sessionKey, "sessionToken": sessionToken};
+			sessionString = JSON.stringify(sessionObj);
+			encodedSessionString = encodeURIComponent( JSON.stringify(sessionObj) );
+			$("#encoded_session_string").val(encodedSessionString);
+			if (debug) {
+			  console.log(sessionString);
+			  console.log(encodedSessionString);
+			}
+			$("form").submit();
+		  }
+		});
+  });
+});
+</script>
+</head>
+<body>
+<h2>AWS STS via PSM using Chrome...</h2>
+<input type="button" id="next_button" name="next_button" value="Loading..."/>
+<br/>
+<form action="signinToken.asp" method="POST">
+  <input type="text" id="access_key" name="access_key" value=""/><br/>
+  <input type="text" id="secret_key" name="secret_key" value=""/><br/>
+  <input type="text" id="account_id" name="account_id" value=""/><br/>
+  <input type="text" id="arn_role" name="arn_role" value=""/><br/>
+  <input type="text" id="policy" name="policy" value=""/><br/>
+  <input type="text" id="duration" name="duration" value=""/><br/>
+  <input type="text" id="session_name" name="session_name" value=""/><br/>
+  <input type="text" id="encoded_session_string" name="encoded_session_string" value=""/><br/>
+</form>
+
+<div id="msg"></div>
+</body>
+</html>
