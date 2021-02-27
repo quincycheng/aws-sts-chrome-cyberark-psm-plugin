@@ -36,19 +36,17 @@ Value|3600
 Visible|Yes
 Required|Yes
 
-3. In PVWA, go to administration > platform management to [duplicate platform](https://docs.cyberark.com/Product-Doc/OnlineHelp/PrivCloud/Latest/en/Content/PASIMP/manage-platforms.htm) `Amazon Web Services (AWS) Access Keys` to new platform `AWS STS with Acess Keys`
+4. In PVWA, go to administration > platform management to [duplicate platform](https://docs.cyberark.com/Product-Doc/OnlineHelp/PrivCloud/Latest/en/Content/PASIMP/manage-platforms.htm) `Amazon Web Services (AWS) Access Keys` to new platform `AWS STS with Acess Keys`
 
-4. Edit the newly created platform `AWS STS with Acess Keys` with the following changes:
-
+5. Edit the newly created platform `AWS STS with Acess Keys` with the following changes:
+   - Add a new `Connection Componments` with `PSM-AwsStsChrome` as `Id`
    - Add `AWSPolicy`, `AWSArnRole`, `AWSDuration` under `Target Account Platform > UI & Workflow > Properties > Required`
+
 Name|Value
 ----|-----
 AWSPolicy|AWS Policy
 AWSArnRole|AWS ARN Role
 AWSDuration|AWS Session Duration
-
-   - Add a new `Connection Componments` with `PSM-AwsStsChrome` as `Id`
-
 
 ### Acccount Setup
 
