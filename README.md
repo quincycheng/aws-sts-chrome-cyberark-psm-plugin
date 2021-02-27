@@ -23,9 +23,10 @@ This PSM plugin will allow users to log on to AWS Management Console on Console 
 Properties|Value
 ----------|-----
 ID| PSM-AwsStsChrome
-Target Settings/ClientApp|Chrome 
+Target Settings\ClientApp|Chrome 
 Web Form Settings\LogonURL|http://localhost/aws_sts/
-Web Form Settings\WebFormFields|access_key>{AWSAccessKeyID}</br>secret_key>{Password}</br>account_id>{AWSAccountID}</br>arn_role>{AWSArnRole}</br>policy>{AWSPolicy}</br>duration>{AWSDuration}</br>next_button>(Button)
+Web Form Settings\WebFormFields|access_key>{AWSAccessKeyID}</br>secret_key>{Password}</br>account_id>{AWSAccountID}</br>arn_role>{AWSArnRole}</br>policy>{AWSPolicy}</br>duration>{AWSDuration}</br>session_name>{ClientUserName}</br>next_button>(Button)
+Target Settings\RunValidations\Value|No
 
 3. Add the following new user parameter under `User Parameters` of the newly created `PSM-AwsStsChrome` web application for PSM
 
