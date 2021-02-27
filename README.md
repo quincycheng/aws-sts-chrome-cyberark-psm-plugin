@@ -48,13 +48,28 @@ Name|Value
 AWSPolicy|AWS Policy
 AWSArnRole|AWS ARN Role
 AWSDuration|AWS Session Duration
+Address|Addresss
 
-6. [Activate](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/Activating-and-Deactivating-Platforms.htm) `AWS STS with Access Keys` Platform
+6. Save the platform
+
+7.  Use `Manage PSM Connectors` feature. to select the PSM server through which the connectors will be managed, 
+
+8. [Activate](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/Activating-and-Deactivating-Platforms.htm) `AWS STS with Access Keys` Platform
 
 ### Acccount Setup
 
-1. [Add an account](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/NewUI/NewUI-Add-an-account-in-PVWA.htm) using the newly created `AWS STS with Access Keys` platform, under `Cloud Service` 
+[Add an account](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/NewUI/NewUI-Add-an-account-in-PVWA.htm) using the newly created `AWS STS with Access Keys` platform, under `Cloud Service` 
 
+Manadatory Properties|Value
+---------------------|----
+Address|aws.amazon.com
+AWS IAM Username| <AWS acccount IAM Username of the access key with AssumeRole permission >
+AWS Access Key ID | <AWS acccount access key with AssumeRole permission>
+AWS Access Key Secret | <AWS acccount secret key with AssumeRole permission>
+AWS Policy| <Policy, e.g. <Your secret key with AssumeRole permission><br/>For example: { "Version": "2012-10-17", "Statement": [ { "Effect": "Allow", "Action": "*", "Resource": "*" } ] }
+AWS Role: <the IAM role> 
+
+   
 
 ## Design Consideration
 1. Why not following the standard 2 AWS account setup?
