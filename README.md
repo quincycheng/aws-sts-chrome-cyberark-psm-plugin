@@ -28,6 +28,7 @@ Web Form Settings\LogonURL|http://localhost/aws_sts/
 Web Form Settings\WebFormFields|access_key>{AWSAccessKeyID}</br>secret_key>{Password}</br>account_id>{AWSAccountID}</br>arn_role>{AWSArnRole}</br>policy>{AWSPolicy}</br>duration>{AWSDuration}</br>next_button>(Button)
 
 3. Add the following new user parameter under `User Parameters` of the newly created `PSM-AwsStsChrome` web application for PSM
+
 Name|Value
 ----|-----
 Name|AWSDuration
