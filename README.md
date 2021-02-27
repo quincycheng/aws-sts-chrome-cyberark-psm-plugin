@@ -76,9 +76,9 @@ AWS Role|[the IAM role]
 
 2. Why using both JavaScript & ASP?
 
-   The aim here is leverage on language supported on IIS from the standard component setup.
-   ASP.NET or ASP.NET core is not considered due to the complexity on web app deployment.
-   AWS JavaScript SDK works great for getting session token, but will cause CORS issues when it comes to getting the signin token, hence ASP is used 
+   The aim here is to leverage on language supported on IIS from the standard component server setup.
+   ASP.NET or ASP.NET core is not considered due to the complexity on web app deployment
+   AWS JavaScript SDK works great for getting session token, but will cause CORS issues when it comes to getting the signin token, hence ASP is used to handle the mechanism to get the sign-in token & federation login link
 
 3. What if the same access key & secret key pair is used for multiple roles logon?
 
