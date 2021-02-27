@@ -37,11 +37,11 @@ Value|3600
 Visible|Yes
 Required|Yes
 
-4. In PVWA, go to administration > platform management to [duplicate platform](https://docs.cyberark.com/Product-Doc/OnlineHelp/PrivCloud/Latest/en/Content/PASIMP/manage-platforms.htm) `Amazon Web Services (AWS) Access Keys` to new platform `AWS STS with Acess Keys`
+4. In PVWA, go to administration > platform management to [duplicate platform](https://docs.cyberark.com/Product-Doc/OnlineHelp/PrivCloud/Latest/en/Content/PASIMP/manage-platforms.htm) `Amazon Web Services (AWS) Access Keys` to new platform `AWS STS with Access Keys`
 
 5. Edit the newly created platform `AWS STS with Acess Keys` with the following changes:
    - Add a new `Connection Componments` with `PSM-AwsStsChrome` as `Id`
-   - Add `AWSPolicy`, `AWSArnRole`, `AWSDuration` under `Target Account Platform > UI & Workflow > Properties > Required`
+   - Under `Target Account Platform > UI & Workflow > Properties > Required`, add the following properties
 
 Name|Value
 ----|-----
@@ -49,9 +49,11 @@ AWSPolicy|AWS Policy
 AWSArnRole|AWS ARN Role
 AWSDuration|AWS Session Duration
 
+6. [Activate](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/Activating-and-Deactivating-Platforms.htm) `AWS STS with Access Keys` Platform
+
 ### Acccount Setup
 
-
+1. [Add an account](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/NewUI/NewUI-Add-an-account-in-PVWA.htm) using the newly created `AWS STS with Access Keys` platform, under `Cloud Service` 
 
 
 ## Design Consideration
@@ -65,3 +67,4 @@ AWSDuration|AWS Session Duration
    The aim here is leverage on language supported on IIS from the standard component setup.
    ASP.NET or ASP.NET core is not considered due to the complexity on web app deployment.
    AWS JavaScript SDK works great for getting session token, but will cause CORS issues when it comes to getting the signin token, hence ASP is used 
+)
