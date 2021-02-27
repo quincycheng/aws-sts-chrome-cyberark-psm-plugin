@@ -1,21 +1,21 @@
-# WORK IN PROGRESS, please move on
-
 # AWS STS on Chrome Plugin for CyberArk PSM
 
 ## Usage
 This PSM plugin will allow users to log on to AWS Management Console on Console using AWS STS
 
+![demo video](images/aws_sts_chrome_small.gif)
+
 ## How does it work?
 
-1. Using [Web Applications for PSM](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/psm_WebApplication.htm?tocpath=Developer%7CCreate%20extensions%7CPSM%20Connectors%7C_____2), the necessary info for generating the federation link is pass the web app, that comes with this plugin, hosted on local component server
-2. The assumeRole API from [AWS Javascript SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/STS.html#assumeRole-property), an encoded session token for temporary, limited-privilege credentials is generated
-3. The encoded session token is passed to the signinToken.asp page to get the Sign In token, as well as the federation login URL
-4. The user will be redirected to the federation login URL to complete the AWS STS signin process
+1. A web app is deployed to PSM server for handling AWS STS login mechanism
+2. Using [Web Applications for PSM](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/psm_WebApplication.htm?tocpath=Developer%7CCreate%20extensions%7CPSM%20Connectors%7C_____2), the necessary AWS account info for generating the federation link is passed to the web app 
+3. The web app will make use of the `assumeRole` API from [AWS Javascript SDK](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/STS.html#assumeRole-property), to generate an encoded session token as temporary, limited-privilege credential
+4. The encoded session token is passed to the server-side script to get the AWS sign in token, as well as the federation login URL
+5. The user will be redirected to the federation login URL to complete the AWS STS signin process
 
+## Setup 
 
-## Setup Procedure
-
-### System & Platform setup
+### One Time System & Platform Setup
 1. Copy `/aws_sts` from this repo to `c:\inetpub\wwwroot\` folder on PSM Server
 
 2. In PVWA, follow the steps in offical doc to create a new [web application for PSM](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/psm_WebApplication.htm?tocpath=Developer%7CCreate%20extensions%7CPSM%20Connectors%7C_____2#Configuration) with the following configuration:
@@ -83,4 +83,9 @@ AWS Role: <the IAM role>
    The aim here is leverage on language supported on IIS from the standard component setup.
    ASP.NET or ASP.NET core is not considered due to the complexity on web app deployment.
    AWS JavaScript SDK works great for getting session token, but will cause CORS issues when it comes to getting the signin token, hence ASP is used 
-)
+
+3. What if the same access key & secret key pair is used for multiple roles logon?
+
+   [Account group](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/Account-Groups.htm) can be used which secrets are managed together
+
+
