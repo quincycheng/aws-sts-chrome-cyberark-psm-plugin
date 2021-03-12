@@ -14,7 +14,7 @@ This PSM plugin allows users to log on to AWS Management Console using AWS STS o
 
 ## System Setup 
 
-1. Copy `/aws_sts` from this repo to `c:\inetpub\wwwroot\` folder on PSM Server
+1. Copy `/aws_sts` from this repo to `c:\inetpub\wwwroot\` folder on PSM Server.  Please make sure the server role, `Web Server(IIS)` - `Web Server` - `Application Development` - `ASP`, is installed.
 
 2. In PVWA, follow the steps in offical doc to create a new [web application for PSM](https://docs.cyberark.com/Product-Doc/OnlineHelp/PAS/Latest/en/Content/PASIMP/psm_WebApplication.htm?tocpath=Developer%7CCreate%20extensions%7CPSM%20Connectors%7C_____2#Configuration) with the following configuration:
 
